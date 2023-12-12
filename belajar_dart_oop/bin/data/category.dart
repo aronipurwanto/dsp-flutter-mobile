@@ -17,9 +17,17 @@ class Category{
     if(id != object.id){
       return false;
     }
+
     if(name != object.name){
       return false;
     }
     return true;
+  }
+
+  @override
+  int get hashCode{
+    var result = id.hashCode;
+    result = result + name.hashCode;
+    return result;
   }
 }
