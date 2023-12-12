@@ -11,4 +11,8 @@ class Rectangle{
 
   set y(int value) => _height = value;
 
+  @override
+  String toString() {
+    return 'Rectangle{_width: $_width, _height: $_height}';
+  }
 }

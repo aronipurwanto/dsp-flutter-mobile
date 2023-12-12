@@ -15,4 +15,9 @@ class Product{
   void setPrice(double value) {
     _price = value;
   }
+
+  @override
+  String toString() {
+    return 'Product{id: $id, name: $name, _quantity: $_quantity, _price: $_price}';
+  }
 }
