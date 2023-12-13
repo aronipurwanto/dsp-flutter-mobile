@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class StartScreen extends StatelessWidget {
@@ -11,7 +10,7 @@ class StartScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Image.asset(
-            'asset/images/quiz-logo.png',
+            'assets/images/quiz-logo.png',
             width: 300,
           ),
           const SizedBox(height: 30),
@@ -23,8 +22,8 @@ class StartScreen extends StatelessWidget {
           const SizedBox(height: 30),
           OutlinedButton(
             onPressed: () {},
-            child: const Text('Start Quiz'),
             style: OutlinedButton.styleFrom(foregroundColor: Colors.white),
+            child: const Text('Start Quiz'),
           )
         ],
       ),

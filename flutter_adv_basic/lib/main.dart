@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_adv_basic/start_screen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -13,6 +14,7 @@ void main() {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         )),
+        child: const StartScreen(),
       ),
     ),
   ));
