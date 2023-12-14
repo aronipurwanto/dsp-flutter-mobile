@@ -31,10 +31,16 @@ class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter Expense App'),
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
+      ),
       body: Column(
         children: [
           const Text('The chart'),
-          ExpensesList(expenses: _dummyExpenses),
+          Expanded(
+            child: ExpensesList(expenses: _dummyExpenses),
+          ),
         ],
       ),
     );
