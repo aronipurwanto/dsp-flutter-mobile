@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_adv_basic/models/summary.dart';
 import 'package:flutter_adv_basic/question_summary/question_identifier.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SummaryItem extends StatelessWidget {
   const SummaryItem(this.itemData, {super.key});
 
-  final Map<String, Object> itemData;
+  //final Map<String, Object> itemData;
+  final QuizSummary itemData;
 
   @override
   Widget build(BuildContext context) {
-    final isCorrectAnswer =
-        itemData['user_answer'] == itemData['correct_answer'];
+    final isCorrectAnswer = itemData.userAnswer == itemData.correctAnswer;
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -21,7 +22,7 @@ class SummaryItem extends StatelessWidget {
         children: [
           QuestionIdentifier(
             isCorrectAnswer: isCorrectAnswer,
-            questionIndex: itemData['question_index'] as int,
+            questionIndex: itemData.index,
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -29,7 +30,7 @@ class SummaryItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  itemData['question'] as String,
+                  itemData.text,
                   style: GoogleFonts.lato(
                     color: Colors.white,
                     fontSize: 16,
@@ -39,11 +40,11 @@ class SummaryItem extends StatelessWidget {
                 const SizedBox(
                   height: 5,
                 ),
-                Text(itemData['user_answer'] as String,
+                Text(itemData.userAnswer,
                     style: const TextStyle(
                       color: Color.fromARGB(255, 202, 171, 252),
                     )),
-                Text(itemData['correct_answer'] as String,
+                Text(itemData.correctAnswer,
                     style: const TextStyle(
                       color: Color.fromARGB(255, 181, 254, 246),
                     )),

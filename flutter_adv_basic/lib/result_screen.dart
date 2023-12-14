@@ -1,8 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_adv_basic/question_summary/question_summary.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'data/questions.dart';
+import 'models/summary.dart';
 
 class ResultsScreen extends StatelessWidget {
   const ResultsScreen(
@@ -10,16 +12,21 @@ class ResultsScreen extends StatelessWidget {
 
   final void Function() onRestart;
   final List<String> chosenAnswer;
-
-  List<Map<String, Object>> getSummaryData() {
-    final List<Map<String, Object>> summary = [];
+  // List<Map<String, Object>> getSummaryData()
+  List<QuizSummary> getSummaryData() {
+    //final List<Map<String, Object>> summary = [];
+    final List<QuizSummary> summary = [];
     for (int i = 0; i < chosenAnswer.length; i++) {
+      summary.add(QuizSummary(
+          i, questions[i].text, questions[i].answers[0], chosenAnswer[i]));
+      /*
       summary.add({
         'question_index': i,
         'question': questions[i].text,
         'correct_answer': questions[i].answers[0],
         'user_answer': chosenAnswer[i]
       });
+       */
     }
 
     return summary;
@@ -30,7 +37,7 @@ class ResultsScreen extends StatelessWidget {
     final summaryData = getSummaryData();
     final numTotalQuestion = questions.length;
     final numCorrectQuestion = summaryData.where((element) {
-      return element['user_answer'] == element['correct_answer'];
+      return element.userAnswer == element.correctAnswer;
     }).length;
 
     return SizedBox(
