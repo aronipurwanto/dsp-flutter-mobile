@@ -4,7 +4,7 @@ import 'package:flutter_adv_basic/question_summary.dart';
 import 'data/questions.dart';
 
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen({super.key, required this.chosenAnswer});
+  const ResultsScreen({required this.chosenAnswer, super.key});
 
   final List<String> chosenAnswer;
   List<Map<String, Object>> getSummaryData() {
@@ -22,6 +22,12 @@ class ResultsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final summaryData = getSummaryData();
+    final numTotalQuestion = questions.length;
+    final numCorrectQuestion = summaryData.where((element) {
+      return element['user_answer'] == element['correct_answer'];
+    }).length;
+
     return SizedBox(
       width: double.infinity,
       child: Container(
@@ -29,11 +35,14 @@ class ResultsScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('You answered X out of Y questions correctly!'),
+            Text(
+              'You answered $numCorrectQuestion out of $numTotalQuestion questions correctly!',
+              style: const TextStyle(color: Colors.white, fontSize: 24),
+            ),
             const SizedBox(
               height: 30,
             ),
-            QuestionSummary(summaryData: getSummaryData()),
+            QuestionSummary(summaryData: summaryData),
             const SizedBox(
               height: 30,
             ),
