@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_expense_app/expenses.dart';
+import 'package:flutter_expense_app/widgets/expenses.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_expense_app/main.dart';
