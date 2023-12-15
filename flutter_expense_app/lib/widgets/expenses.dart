@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expense_app/widgets/chart/chart.dart';
 import 'package:flutter_expense_app/widgets/new_expenses.dart';
 
 import '../models/expense.dart';
@@ -14,7 +15,7 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> _registeredExpenses = [
+  final List<Expense> _dummyExpense = [
     Expense(
       title: 'Flutter Course',
       amount: 19.99,
@@ -39,14 +40,14 @@ class _ExpensesState extends State<Expenses> {
 
   void _addExpense(Expense expense) {
     setState(() {
-      _registeredExpenses.add(expense);
+      _dummyExpense.add(expense);
     });
   }
 
   void _removeExpense(Expense expense) {
-    final expenseIndex = _registeredExpenses.indexOf(expense);
+    final expenseIndex = _dummyExpense.indexOf(expense);
     setState(() {
-      _registeredExpenses.remove(expense);
+      _dummyExpense.remove(expense);
     });
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
@@ -57,7 +58,7 @@ class _ExpensesState extends State<Expenses> {
           label: 'Undo',
           onPressed: () {
             setState(() {
-              _registeredExpenses.insert(expenseIndex, expense);
+              _dummyExpense.insert(expenseIndex, expense);
             });
           },
         ),
@@ -71,9 +72,9 @@ class _ExpensesState extends State<Expenses> {
       child: Text('No expenses found. Start adding some!'),
     );
 
-    if (_registeredExpenses.isNotEmpty) {
+    if (_dummyExpense.isNotEmpty) {
       mainContent = ExpensesList(
-        expenses: _registeredExpenses,
+        expenses: _dummyExpense,
         onRemoveExpense: _removeExpense,
       );
     }
@@ -90,7 +91,7 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(
         children: [
-          const Text('The chart'),
+          Chart(expenses: _dummyExpense),
           Expanded(
             child: mainContent,
           ),
