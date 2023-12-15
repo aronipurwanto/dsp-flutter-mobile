@@ -14,7 +14,7 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> _dummyExpenses = [
+  final List<Expense> _registeredExpenses = [
     Expense(
       title: 'Flutter Course',
       amount: 19.99,
@@ -29,38 +29,39 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
-  void _addExpense(Expense expense) {
-    setState(() {
-      _dummyExpenses.add(expense);
-    });
-  }
-
-  void _removeExpense(Expense expense) {
-    final index = _dummyExpenses.indexOf(expense);
-
-    setState(() {
-      _dummyExpenses.remove(expense);
-    });
-
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 3),
-      content: const Text('Expense is deleted'),
-      action: SnackBarAction(
-          label: 'undo',
-          onPressed: () {
-            setState(() {
-              _dummyExpenses.insert(index, expense);
-            });
-          }),
-    ));
-  }
-
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
       builder: (ctx) => NewExpense(onAddExpense: _addExpense),
+    );
+  }
+
+  void _addExpense(Expense expense) {
+    setState(() {
+      _registeredExpenses.add(expense);
+    });
+  }
+
+  void _removeExpense(Expense expense) {
+    final expenseIndex = _registeredExpenses.indexOf(expense);
+    setState(() {
+      _registeredExpenses.remove(expense);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        duration: const Duration(seconds: 3),
+        content: const Text('Expense deleted.'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _registeredExpenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
     );
   }
 
@@ -70,25 +71,29 @@ class _ExpensesState extends State<Expenses> {
       child: Text('No expenses found. Start adding some!'),
     );
 
-    if (_dummyExpenses.isNotEmpty) {
+    if (_registeredExpenses.isNotEmpty) {
       mainContent = ExpensesList(
-        expenses: _dummyExpenses,
+        expenses: _registeredExpenses,
         onRemoveExpense: _removeExpense,
       );
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Expense App'),
+        title: const Text('Flutter ExpenseTracker'),
         actions: [
           IconButton(
-              onPressed: _openAddExpenseOverlay, icon: const Icon(Icons.add))
+            onPressed: _openAddExpenseOverlay,
+            icon: const Icon(Icons.add),
+          ),
         ],
       ),
       body: Column(
         children: [
           const Text('The chart'),
-          Expanded(child: mainContent),
+          Expanded(
+            child: mainContent,
+          ),
         ],
       ),
     );
